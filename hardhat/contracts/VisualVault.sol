@@ -34,6 +34,32 @@ contract VisualVault {
         );
     }
 
+    function login(
+        address accountAddress,
+        string memory _siteDomain,
+        string memory _tokenURI
+    ) external view returns (bool) {
+        require(isProfileSet[accountAddress], "no address");
+        for (uint i = 0; i < allUsers[accountAddress].passwords.length; i++) {
+            string memory siteDomain = allUsers[accountAddress]
+                .passwords[0]
+                .siteDomain;
+            if (
+                keccak256(abi.encodePacked(siteDomain)) ==
+                keccak256(abi.encodePacked(_siteDomain))
+            ) {
+                bytes32 unique = hash(_tokenURI);
+                string memory _passwordHash = bytes32ToString(unique);
+                string memory passwordHash = allUsers[accountAddress]
+                    .passwords[0]
+                    .passwordHash;
+                return !(keccak256(abi.encodePacked(passwordHash)) ==
+                    keccak256(abi.encodePacked(_passwordHash)));
+            }
+        }
+        return false;
+    }
+
     function getUserInfo(
         address userAddress
     ) public view returns (User memory) {

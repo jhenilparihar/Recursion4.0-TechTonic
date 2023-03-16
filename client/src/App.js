@@ -128,6 +128,12 @@ class App extends Component {
       });
   };
 
+  login = async (site, password) => {
+    return await this.state.Contract.methods
+      .login(this.state.accountAddress, site, password)
+      .call();
+  };
+
   render() {
     // console.log(this.state.userProfile?.tokenURI);
     return (
@@ -144,8 +150,14 @@ class App extends Component {
         ) : this.state.loading ? (
           <Loading />
         ) : (
+          // <Signup
+          //   tokenURI={this.state.userProfile?.tokenURI}
+          //   signup={this.signup}
+          // />
+
           <Login
             tokenURI={this.state.userProfile?.tokenURI}
+            login={this.login}
           />
         )}
       <ToastContainer/>
