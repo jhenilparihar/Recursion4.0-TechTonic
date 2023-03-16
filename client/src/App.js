@@ -1,7 +1,6 @@
 import { useState, Component } from "react";
 import "./App.css";
 import Web3 from "web3";
-import axios from "axios";
 
 import { contractABI, contractAddress } from "./utils/constants";
 
@@ -12,8 +11,10 @@ import UploadImage from "./components/UploadImage/UploadImage";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 class App extends Component {
   constructor(props) {
@@ -150,17 +151,33 @@ class App extends Component {
         ) : this.state.loading ? (
           <Loading />
         ) : (
-          // <Signup
-          //   tokenURI={this.state.userProfile?.tokenURI}
-          //   signup={this.signup}
-          // />
+          // <UploadImage />
 
-          <Login
-            tokenURI={this.state.userProfile?.tokenURI}
-            login={this.login}
-          />
+          <BrowserRouter>
+            <Routes>
+              <Route
+                path="signup"
+                element={
+                  <Signup
+                    tokenURI={this.state.userProfile?.tokenURI}
+                    signup={this.signup}
+                  />
+                }
+              />
+              <Route
+                path="login"
+                element={
+                  <Login
+                    tokenURI={this.state.userProfile?.tokenURI}
+                    login={this.login}
+                  />
+                }
+              />
+              <Route path="upload" element={<UploadImage />} />
+            </Routes>
+          </BrowserRouter>
         )}
-      <ToastContainer/>
+        <ToastContainer />
       </div>
     );
   }
@@ -168,8 +185,9 @@ class App extends Component {
 
 export default App;
 
-
-{/* <Signup
+{
+  /* <Signup
             tokenURI={this.state.userProfile?.tokenURI}
             signup={this.signup}
-          /> */}
+          /> */
+}

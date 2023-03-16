@@ -17,7 +17,14 @@ const client = create({
     authorization: auth,
   },
 });
-
+const image = {
+  chocolate: "QmTcn6vxMmxRvRGuCZvgjwxJ3NiBEiuDnQW64iwi4Bia5D",
+  cars: "QmQkLxpZFvhSRZDGbRFWJQrTvttbEfrAQNVx3nJ5Q77wpA",
+  fruits: "QmQuyGGo9DEbhvwFBxCM23NphzuE2jqmWzRtX36iaWXWdC",
+  vegetables: "QmRBsrfKdd6yxFgef9EDqx9gMN21V82KigJvXrhfmqPQza",
+  animals: "QmT8YBJtuCDN4jZk8Gy3FJGD9tUrWUAP6QpWch28c9MEWp",
+  bike: "QmSh3Vg1pz3Ux9t6tFfh77TGXoaZ9jUHNShBKK8hL5ufQ1",
+};
 const UploadImage = () => {
   const [imageUrl, setImageUrl] = useState("");
 
@@ -63,7 +70,7 @@ const UploadImage = () => {
     const cid = await client.add(JSON.stringify(tokenObject));
     const tokenURI = `https://infura-ipfs.io/ipfs/${cid.path}`;
     console.log(cid.path);
-    return cid.path
+    return cid.path;
   };
 
   const getImage = async (tokenUri) => {
@@ -72,41 +79,42 @@ const UploadImage = () => {
     const metaData = await result.json();
 
     console.log(metaData.imageList);
-
   };
 
   return (
-    <>
-      <div id="b2" class="nft-image">
-        <img class="img-uploaded" src={imageUrl} alt="" />
-        <input class="img-fileInput" type="file" onChange={onChange} />
-      </div>
+    <div className="">
+      <img src={imageUrl} alt="" />
+      <input type="file" onChange={onChange} />
+      <br />
+      <br />
       <button
         onClick={() => {
           setImagesJson(
-            "QmcKZd2p4hkjVJDMWCadNLVBe4NQYH5Lvxx3S4xRsCtJAW",
-            "Qmf1BWDRXKzR5xkWdwnYatTecE3egQ1uWqW8Fg9k7ivtqk",
-            "QmdtQ8vfZgS3B76BqCMt6EHCUePR3WkZZzMaLfaUhPMP31",
-            "QmYKRY8gQ9qcm8Kkd8GA4UjVb8nWpSZNdQ9H7Y7tChYjVS",
-            "QmQMddy7rvGirNz62yLg9DctXHUbjLmFXzykxY8vvdCQ91",
-            "QmSL6eLzk7ddQ9zHTjah4fYbQDdiSkbzU58Lz376ybn146",
-            "QmZEN4fQE4QUQjKg8XoNuwRAwMvCWW4PAHH32A6D4aVmuW",
-            "QmX3QMFGxZJuQ1xTXJXNgNDaJH78iMoBy4dYtiFgrddFjA",
-            "QmPT6M6ybbjqdLsEkA6UszULXHReADeG8sHBxKpCdCcJko"
+            "QmUuj61GuLEBrtMSQEzC7f16xkHUzBcRJj9sm1o3Qsu33g",
+            "QmT81jESjCzp3sv8DLhDsnzXc4hjJ6ySXhuiExjJsbyAkF",
+            "QmRmBoQGGkZfs5qNuGkHCyYWKTCYwfhHQbxt8quVy2VhMp",
+            "QmbM6gzJY2rrLBeVaRVs9oVNkcjXvEoctLYq6ey1doEqni",
+            "Qmf4VYA3uEEwMc5DpcVmdvjh2fAZnLWXjMWL2cU75w99oL",
+            "QmfYWqXCtDMCjWb8JbT8PT1fuGj4Fua5WwZUM8JXBmhxBy",
+            "QmbgDbuPje3bgWigrctuWn9L9v3KaNZKXsWBtF3a5S4X59",
+            "QmXKcz2oBpJkZunthcRRnsy93vsP8k46RgcseBaNn3cn1a",
+            "QmVdvXUeWCg65mzt2TXoJi7FNyyust73DkdZYg7SudXGjV"
           );
         }}
       >
         Submit
       </button>
-
+      <br />
+      <br />
       <button
+        type="button"
         onClick={() =>
-          getImage("QmTcn6vxMmxRvRGuCZvgjwxJ3NiBEiuDnQW64iwi4Bia5D")
+          getImage("QmT8YBJtuCDN4jZk8Gy3FJGD9tUrWUAP6QpWch28c9MEWp")
         }
       >
         Get Console
       </button>
-    </>
+    </div>
   );
 };
 
