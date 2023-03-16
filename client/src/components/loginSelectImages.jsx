@@ -1,6 +1,7 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 const LoginSelectImages = (props) => {
+    const [images, setImages] = useState(props.images)
     const [selectedImages, setSelectedImages] = useState([])
 
     const push = (imageId) => {
@@ -26,9 +27,13 @@ const LoginSelectImages = (props) => {
         setSelectedImages([])
     }
 
+    useEffect(() => {
+        setImages(props.images)
+    }, [props.images])
+
     return (
         <div className="flex flex-row flex-wrap w-[100%] justify-between gap-y-[5px] cursor-pointer">
-        {props.images.map(image => {
+        {images.map(image => {
                 return (
                     <div className="relative w-[32%] h-[120px] cursor-pointer" key={image}>
                         <img
