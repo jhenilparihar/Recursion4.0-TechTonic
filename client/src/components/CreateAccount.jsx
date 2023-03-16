@@ -1,4 +1,6 @@
-import { createTheme, TextField, ThemeProvider } from "@mui/material";
+// import { createTheme, TextField, ThemeProvider } from "@mui/material";
+import { createTheme, TextField, FormControl, InputLabel, MenuItem, Select, ThemeProvider } from "@mui/material";
+
 import { useState } from "react";
 import { toast } from "react-toastify";
 
@@ -9,6 +11,8 @@ const CreateAccount = ({
   accountAddress,
 }) => {
 
+  const [imageCategory, setImageCategory] = useState()
+
   const darkTheme = createTheme({
     palette: {
       mode: "dark",
@@ -18,11 +22,26 @@ const CreateAccount = ({
   const onCreateAccountHandler = (e) => {
     e.preventDefault();
     const name = e.target.firstName.value + " " + e.target.lastName.value;
+    // const tokenURI = e.target.imageCategory.value
+    console.log(imageCategory)
     if(metamaskConnected)
-      createProfile(name);
+      createProfile(name, imageCategory);
     else {
       toast("Please connect Metamask")
     }
+  };
+
+  const handleChange = (event) => {
+    setImageCategory(event.target.value);
+  };
+
+  const image = {
+    chocolate: "QmTcn6vxMmxRvRGuCZvgjwxJ3NiBEiuDnQW64iwi4Bia5D",
+    cars: "QmQkLxpZFvhSRZDGbRFWJQrTvttbEfrAQNVx3nJ5Q77wpA",
+    fruits: "QmQuyGGo9DEbhvwFBxCM23NphzuE2jqmWzRtX36iaWXWdC",
+    vegetables: "QmRBsrfKdd6yxFgef9EDqx9gMN21V82KigJvXrhfmqPQza",
+    animals: "QmT8YBJtuCDN4jZk8Gy3FJGD9tUrWUAP6QpWch28c9MEWp",
+    bike: "QmSh3Vg1pz3Ux9t6tFfh77TGXoaZ9jUHNShBKK8hL5ufQ1",
   };
 
   return (
@@ -50,7 +69,7 @@ const CreateAccount = ({
       </div>
 
       <form onSubmit={onCreateAccountHandler}>
-        <div className="flex flex-row gap-x-[20px] mt-[30px]">
+        <div className="flex flex-row gap-y-[20px] gap-x-[20px] mt-[30px] flex-wrap">
           <ThemeProvider theme={darkTheme}>
             <TextField
               required
@@ -69,8 +88,49 @@ const CreateAccount = ({
               placeholder="John"
               size="small"
             />
+
+          {/* <FormControl className="w-[50%]">
+            <InputLabel id="demo-simple-select-label">Select Image Category</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={imageCategory}
+              label="Select Image Category"
+              size="small"
+              onChange={handleChange}
+            >
+              {Object.entries(image).map((key, value) => {
+                return (
+                  <MenuItem value={key[1]}>{key[0]}</MenuItem>
+                )
+              })}
+            </Select>
+          </FormControl> */}
+      
           </ThemeProvider>
         </div>
+
+        <ThemeProvider theme={darkTheme}>
+      <div className="w-[48%] mt-[20px]">
+      <FormControl className="w-[100%]">
+        <InputLabel id="demo-simple-select-label">Select Image Category</InputLabel>
+        <Select
+          labelId="imageCategory"
+          id="imageCategory"
+          value={imageCategory}
+          label="Select Image Category"
+          size="small"
+          onChange={(e) => {setImageCategory(e.target.value)}}
+        >
+          {Object.entries(image).map((key, value) => {
+            return (
+              <MenuItem value={key[1]}>{key[0]}</MenuItem>
+            )
+          })}
+        </Select>
+      </FormControl>
+      </div>
+      </ThemeProvider>
 
         <div className="flex flex-row justify-center">
           <button

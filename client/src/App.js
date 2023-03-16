@@ -104,12 +104,12 @@ class App extends Component {
       });
   };
 
-  createProfile = async (name) => {
+  createProfile = async (name, tokenURI) => {
     this.setState({ loading: true });
     const transactionHash = await this.state.Contract.methods
       .addUserProfile(
         name,
-        "https://ipfs.io/ipfs/QmTcn6vxMmxRvRGuCZvgjwxJ3NiBEiuDnQW64iwi4Bia5D"
+        `https://ipfs.io/ipfs/${tokenURI}`
       )
       .send({ from: this.state.accountAddress })
       .on("confirmation", () => {
