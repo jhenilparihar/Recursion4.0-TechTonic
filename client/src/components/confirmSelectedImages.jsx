@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 const ConfirmSelectedImages = (props) => {
   const [selectedImages, setSelectedImages] = useState([]);
   const [images, setImages] = useState([]);
-  //   const images = props.images.sort((a, b) => 0.5 - Math.random());
 
   const push = (imageId) => {
     if (selectedImages.includes(imageId)) {

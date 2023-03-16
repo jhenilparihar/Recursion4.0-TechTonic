@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
 const LoginSelectImages = (props) => {
     const [selectedImages, setSelectedImages] = useState([])
@@ -10,20 +10,15 @@ const LoginSelectImages = (props) => {
         setSelectedImages((prev) => [...prev, imageId])
     }
 
-    console.log(selectedImages)
-
     const onConfirmClickHandler = () => {
-        // if(JSON.stringify(selectedImages) === JSON.stringify(props.pass)) {
-        //     props.setShowConfirmPass(false)
-        //     // props.setPassStatus(true)
-        //     props.setConfirmPassStaus(true)
-        // }
-        // else {
-        //     props.setShowConfirmPass(false)
-        //     props.setConfirmPassStaus(false)
-        //     setSelectedImages([])
-        // }
-        console.log(selectedImages, props.pass, selectedImages == props.pass)
+        let result = ''
+        for(let i=0; i<selectedImages.length; i++) {
+          result += selectedImages[i]
+        }
+        props.setFinalPass(result)
+        setSelectedImages([])
+        props.setShowEnterPass(false)
+        props.onLoginClickHandler()
     }
 
     const onCancelClickHandler = () => {
@@ -35,15 +30,22 @@ const LoginSelectImages = (props) => {
         <div className="flex flex-row flex-wrap w-[100%] justify-between gap-y-[5px] cursor-pointer">
         {props.images.map(image => {
                 return (
-                    <div className="relative w-[32%] h-[120px] cursor-pointer">
-                        <img 
-                            src={`https://${image.cid}.ipfs.w3s.link/${image.name}`} 
-                            className={`w-[100%] h-[100%] rounded-md ${selectedImages.includes(image.cid) && "opacity-50"}`} 
-                            onClick={() => {push(image.cid)}}/>
+                    <div className="relative w-[32%] h-[120px] cursor-pointer" key={image}>
+                        <img
+                            src={`https://infura-ipfs.io/ipfs/${image}`}
+                            className={`w-[100%] h-[100%] rounded-md overflow-hidden ${
+                                selectedImages.includes(image) && "opacity-50"
+                            }`}
+                            onClick={() => {
+                                push(image);
+                            }}
+                            />
 
-                        {selectedImages.includes(image.cid) && <div className="absolute left-[50%] top-[50%] font-semibold text-[#404040] text-[32px]">
-                            {selectedImages.indexOf(image.cid)+1}
-                        </div>}
+                        {selectedImages.includes(image) && (
+                        <div className="absolute w-[100%] h-[100%] bg-[#C0C0C0] top-0 font-bold text-[#202020] text-[32px] rounded-md flex items-center justify-center opacity-80">
+                            {selectedImages.indexOf(image) + 1}
+                        </div>
+                        )}
                     </div>
                 
                 )
@@ -52,7 +54,7 @@ const LoginSelectImages = (props) => {
             <button className="bg-primaryBlue py-[8px] px-[24px] rounded-lg text-white font-inter font-medium self-start border-[1px]"
                 onClick={onConfirmClickHandler}
             >
-                Confirm
+                Login
             </button>
 
             <button className="bg-primaryBlue py-[8px] px-[24px] rounded-lg text-white font-inter font-medium self-start border-[1px]"
