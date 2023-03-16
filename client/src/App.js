@@ -1,23 +1,13 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import CreateAccount from './components/CreateAccount';
 
 function App() {
+  const [status, setStatus] = useState('createAccount')
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="text-blue-500">
+      <CreateAccount/>
     </div>
   );
 }
