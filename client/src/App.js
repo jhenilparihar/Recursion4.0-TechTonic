@@ -10,6 +10,7 @@ import Loading from "./components/Loading/Loading";
 import CreateAccount from "./components/CreateAccount";
 import UploadImage from "./components/UploadImage/UploadImage";
 import Signup from "./components/Signup";
+import Login from "./components/Login";
 
 class App extends Component {
   constructor(props) {
@@ -124,6 +125,12 @@ class App extends Component {
       });
   };
 
+  login = async (site, password) => {
+    return await this.state.Contract.methods
+      .login(this.state.accountAddress, site, password)
+      .call();
+  };
+
   render() {
     // console.log(this.state.userProfile?.tokenURI);
     return (
@@ -140,9 +147,14 @@ class App extends Component {
         ) : this.state.loading ? (
           <Loading />
         ) : (
-          <Signup
+          // <Signup
+          //   tokenURI={this.state.userProfile?.tokenURI}
+          //   signup={this.signup}
+          // />
+
+          <Login
             tokenURI={this.state.userProfile?.tokenURI}
-            signup={this.signup}
+            login={this.login}
           />
         )}
       </>
