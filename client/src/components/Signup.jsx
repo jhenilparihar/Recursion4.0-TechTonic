@@ -11,8 +11,6 @@ const Singup = ({ tokenURI, signup }) => {
   const [images, setImages] = useState([]);
   const [finalPass, setFinalPass] = useState(null);
 
-  console.log(finalPass);
-
   const getImage = async (tokenUri) => {
     const result = await fetch(tokenUri);
     const metaData = await result.json();
@@ -29,23 +27,23 @@ const Singup = ({ tokenURI, signup }) => {
   }, [tokenURI]);
 
   return (
-    <div className="w-[500px] h-auto p-[20px] bg-[#12131A] text-white flex flex-col gap-y-[20px] rounded-lg m-auto mt-20">
+    <div className="w-[565px] h-auto px-[50px] py-[25px] bg-[#12131A] text-white flex flex-col gap-y-[20px] rounded-2xl m-auto shadow-lg">
       <div className="flex flex-row">
-        <button className="bg-green-500 px-[40px] py-[5px] rounded-xl ml-auto font-semibold">
+        <button className="border-green-400 border-[3px] px-[40px] py-[5px] rounded-xl ml-auto font-semibold text-green-400">
           Connected
         </button>
       </div>
-      <div className="font-semibold">
+      {/* <div className="font-semibold">
         Addresss:{" "}
         <span className=" font-normal">
           {"0xCdd631B7C43B0b0B2b7E3517BD32B4A19C29D323"}
         </span>
-      </div>
+      </div> */}
 
       <div className="">
         <div className="flex flex-row">
           <button
-            className="min-w-[200px] bg-primaryBlue py-[8px] px-[24px] rounded-lg text-white font-inter font-medium self-start border-[1px]"
+            className="min-w-[200px] bg-primaryBlue py-[8px] px-[24px] rounded-lg text-white font-inter font-medium self-start"
             onClick={() => {
               setShowCreatePass(true);
             }}
@@ -76,7 +74,7 @@ const Singup = ({ tokenURI, signup }) => {
         <div className="">
           <div className="flex flex-row">
             <button
-              className="min-w-[200px] bg-primaryBlue py-[8px] px-[24px] rounded-lg text-white font-inter font-medium self-start border-[1px]"
+              className="min-w-[200px] bg-primaryBlue py-[8px] px-[24px] rounded-lg text-white font-inter font-medium self-start"
               onClick={() => {
                 setShowConfirmPass(true);
               }}
@@ -108,7 +106,7 @@ const Singup = ({ tokenURI, signup }) => {
       {confirmPassStatus && (
         <button
           onClick={signUp}
-          className="m-auto min-w-[200px] bg-primaryBlue py-[8px] px-[24px] rounded-lg text-white font-inter font-medium self-start border-[1px]"
+          className="min-w-[200px] m-auto bg-gradient-to-r from-[#380336] to-[#0CBABA] py-[8px] px-[24px] rounded-lg text-white font-inter font-medium border-[1px] mt-[80px] outline-none border-none text-[18px]"
         >
           Complete SignUp
         </button>

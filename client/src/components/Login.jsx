@@ -19,6 +19,10 @@ const Login = ({ tokenURI, login }) => {
         getImage(tokenURI);
       }, [tokenURI]);
 
+    const shuffle = () => {
+        setImages(images.sort((a, b) => 0.5 - Math.random()));
+    }
+
     const onLoginClickHandler = async() => {
         const validate = await login(window.location.hostname, finalPass);
         if(validate) {
@@ -29,7 +33,6 @@ const Login = ({ tokenURI, login }) => {
             setImages(images.sort((a, b) => 0.5 - Math.random()));
         }
 
-        
     }
 
     return (
@@ -66,6 +69,7 @@ const Login = ({ tokenURI, login }) => {
                         setFinalPass={setFinalPass}
                         setShowEnterPass={setShowEnterPass}
                         onLoginClickHandler={onLoginClickHandler}
+                        shuffle={shuffle}
                     />
                 </div>}
             </div>

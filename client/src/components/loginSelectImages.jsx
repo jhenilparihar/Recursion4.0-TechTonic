@@ -18,13 +18,14 @@ const LoginSelectImages = (props) => {
         }
         props.setFinalPass(result)
         setSelectedImages([])
-        props.setShowEnterPass(false)
+        // props.setShowEnterPass(false)
         props.onLoginClickHandler()
     }
 
     const onCancelClickHandler = () => {
         // props.setShowConfirmPass(false)
         setSelectedImages([])
+        props.shuffle()
     }
 
     useEffect(() => {
