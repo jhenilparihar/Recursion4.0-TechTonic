@@ -12,6 +12,9 @@ import UploadImage from "./components/UploadImage/UploadImage";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -134,7 +137,7 @@ class App extends Component {
   render() {
     // console.log(this.state.userProfile?.tokenURI);
     return (
-      <>
+      <div className="flex justify-center h-[100vh]">
         {!this.state.metamaskConnected || !this.state.profileSet ? (
           <CreateAccount
             connectToMetamask={this.connectToMetamask}
@@ -157,9 +160,16 @@ class App extends Component {
             login={this.login}
           />
         )}
-      </>
+      <ToastContainer/>
+      </div>
     );
   }
 }
 
 export default App;
+
+
+{/* <Signup
+            tokenURI={this.state.userProfile?.tokenURI}
+            signup={this.signup}
+          /> */}
