@@ -29,6 +29,8 @@ class App extends Component {
       Contract: null,
       profileSet: false,
       userProfile: null,
+      domain: window.location.hostname,
+      isSignUp: false,
     };
   }
 
@@ -80,6 +82,10 @@ class App extends Component {
           .call();
         console.log(cp);
         this.setState({ userProfile: cp });
+        console.log(cp.passwords[0])
+        for (let i = 0; i < cp.passwords.lenght; i++) {
+          console.log(cp.passwords[0].siteDomain);
+        }
       }
       this.setState({ loading: false });
     }
