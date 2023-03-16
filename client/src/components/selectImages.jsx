@@ -1,48 +1,61 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 
 const SelectImages = (props) => {
-    const [selectedImages, setSelectedImages] = useState([])
+  const [selectedImages, setSelectedImages] = useState([]);
+  const [images, setImages] = useState([]);
 
-    const push = (imageId) => {
-        if(selectedImages.includes(imageId)) {
-            return
-        }
-        setSelectedImages((prev) => [...prev, imageId])
+  //   const images = props.images.sort((a, b) => 0.5 - Math.random());
+
+  const push = (imageId) => {
+    if (selectedImages.includes(imageId)) {
+      return;
     }
+    setSelectedImages((prev) => [...prev, imageId]);
+  };
 
-    console.log(selectedImages)
+  console.log(selectedImages);
 
-    const onOkClickHandler = () => {
-        props.setPass(selectedImages)
-        props.setShowCreatePass(false)
-        props.setShowConfirmPass(true)
-        props.setPassStatus(true)
-    }
+  const onOkClickHandler = () => {
+    props.setPass(selectedImages);
+    props.setShowCreatePass(false);
+    props.setShowConfirmPass(true);
+    props.setPassStatus(true);
+  };
 
-    const onCancelClickHandler = () => {
-        props.setShowCreatePass(false)
-        setSelectedImages([])
-    }
+  const onCancelClickHandler = () => {
+    props.setShowCreatePass(false);
+    setSelectedImages([]);
+  };
 
-    return (
-        <div className="flex flex-row flex-wrap w-[100%] justify-between gap-y-[5px]">
-            {props.images.map(image => {
-                return (
-                    <div className="relative w-[32%] h-[120px] cursor-pointer">
-                        <img 
-                            src={`https://${image.cid}.ipfs.w3s.link/${image.name}`} 
-                            className={`w-[100%] h-[100%] rounded-md overflow-hidden ${selectedImages.includes(image.cid) && "opacity-50"}`} 
-                            onClick={() => {push(image.cid)}}/>
+  useEffect(() => {
+    setImages(props.images.sort((a, b) => 0.5 - Math.random()));
+  }, [props.images]);
 
-                        {selectedImages.includes(image.cid) && <div className="absolute w-[100%] h-[100%] bg-[#C0C0C0] top-0 font-bold text-[#202020] text-[32px] rounded-md flex items-center justify-center opacity-80">
-                            {selectedImages.indexOf(image.cid)+1}
-                        </div>}
-                    </div>
-                
-                )
-            })}
+  return (
+    <div className="flex flex-row flex-wrap w-[100%] justify-between gap-y-[5px]">
+      {images.map((image) => {
+        return (
+          <div className="relative w-[32%] h-[120px] cursor-pointer">
+            <img
+              src={`https://infura-ipfs.io/ipfs/${image}`}
+              className={`w-[100%] h-[100%] rounded-md overflow-hidden ${
+                selectedImages.includes(image) && "opacity-50"
+              }`}
+              onClick={() => {
+                push(image);
+              }}
+            />
 
-            {/* <div className={`bg-yellow-500 w-[32%] h-[120px] rounded-md ${selectedImages.includes(1) && "opacity-20"}`} onClick={() => {push(1)}}>
+            {selectedImages.includes(image) && (
+              <div className="absolute w-[100%] h-[100%] bg-[#C0C0C0] top-0 font-bold text-[#202020] text-[32px] rounded-md flex items-center justify-center opacity-80">
+                {selectedImages.indexOf(image) + 1}
+              </div>
+            )}
+          </div>
+        );
+      })}
+
+      {/* <div className={`bg-yellow-500 w-[32%] h-[120px] rounded-md ${selectedImages.includes(1) && "opacity-20"}`} onClick={() => {push(1)}}>
                 Image
             </div>
 
@@ -78,18 +91,20 @@ const SelectImages = (props) => {
                 Image
             </div> */}
 
-            <button className="bg-primaryBlue py-[8px] px-[24px] rounded-lg text-white font-inter font-medium self-start border-[1px]"
-                onClick={onOkClickHandler}
-            >
-                OK
-            </button>
-            <button className="bg-primaryBlue py-[8px] px-[24px] rounded-lg text-white font-inter font-medium self-start border-[1px]"
-                onClick={onCancelClickHandler}
-            >
-                Cancel
-            </button>
-        </div>
-    )
-}
+      <button
+        className="bg-primaryBlue py-[8px] px-[24px] rounded-lg text-white font-inter font-medium self-start border-[1px]"
+        onClick={onOkClickHandler}
+      >
+        OK
+      </button>
+      <button
+        className="bg-primaryBlue py-[8px] px-[24px] rounded-lg text-white font-inter font-medium self-start border-[1px]"
+        onClick={onCancelClickHandler}
+      >
+        Cancel
+      </button>
+    </div>
+  );
+};
 
-export default SelectImages
+export default SelectImages;

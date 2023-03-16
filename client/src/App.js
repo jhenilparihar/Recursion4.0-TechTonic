@@ -101,12 +101,22 @@ class App extends Component {
 
   createProfile = async (name) => {
     this.setState({ loading: true });
-    console.log(this.state.Contract.methods);
     const transactionHash = await this.state.Contract.methods
       .addUserProfile(
         name,
         "https://ipfs.io/ipfs/QmTcn6vxMmxRvRGuCZvgjwxJ3NiBEiuDnQW64iwi4Bia5D"
       )
+      .send({ from: this.state.accountAddress })
+      .on("confirmation", () => {
+        this.setState({ loading: false });
+        window.location.reload();
+      });
+  };
+
+  signup = async (password) => {
+    this.setState({ loading: true });
+    const transactionHash = await this.state.Contract.methods
+      .savePassword(window.location.hostname, password)
       .send({ from: this.state.accountAddress })
       .on("confirmation", () => {
         this.setState({ loading: false });
@@ -130,7 +140,10 @@ class App extends Component {
         ) : this.state.loading ? (
           <Loading />
         ) : (
-          <Signup tokenURI={this.state.userProfile?.tokenURI} />
+          <Signup
+            tokenURI={this.state.userProfile?.tokenURI}
+            signup={this.signup}
+          />
         )}
       </>
     );
