@@ -22,7 +22,7 @@ const LoginSelectImages = (props) => {
     }
 
     const onCancelClickHandler = () => {
-        props.setShowConfirmPass(false)
+        // props.setShowConfirmPass(false)
         setSelectedImages([])
     }
 
@@ -51,17 +51,20 @@ const LoginSelectImages = (props) => {
                 )
             })}
 
-            <button className="bg-primaryBlue py-[8px] px-[24px] rounded-lg text-white font-inter font-medium self-start border-[1px]"
-                onClick={onConfirmClickHandler}
-            >
-                Login
-            </button>
+            <div className=" flex flex-col gap-y-[10px] mt-[20px] m-auto">
+                <button className="min-w-[200px] bg-gradient-to-r from-[#380336] to-[#0CBABA] py-[8px] px-[24px] rounded-lg text-white font-inter font-medium border-[1px] outline-none border-none text-[18px]"
+                    onClick={onConfirmClickHandler}
+                >
+                    Login
+                </button>
 
-            <button className="bg-primaryBlue py-[8px] px-[24px] rounded-lg text-white font-inter font-medium self-start border-[1px]"
-                onClick={onCancelClickHandler}
-            >
-                Cancel
-            </button>
+                <button className="text-white font-inter font-medium self-start m-auto"
+                    onClick={onCancelClickHandler}
+                >
+                    Cancel
+                </button>
+            </div>
+            
         </div>
     )
 }
