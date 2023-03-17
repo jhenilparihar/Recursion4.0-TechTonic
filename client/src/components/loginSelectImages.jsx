@@ -18,7 +18,6 @@ const LoginSelectImages = (props) => {
         }
         props.setFinalPass(result)
         setSelectedImages([])
-        // props.setShowEnterPass(false)
         props.onLoginClickHandler()
     }
 
@@ -31,6 +30,8 @@ const LoginSelectImages = (props) => {
     useEffect(() => {
         setImages(props.images)
     }, [props.images])
+
+    console.log(props.images)
 
     return (
         <div className="flex flex-row flex-wrap w-[100%] justify-between gap-y-[5px] cursor-pointer">
