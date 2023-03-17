@@ -23,17 +23,19 @@ const Login = ({ tokenURI, login }) => {
         setImages(images.sort((a, b) => 0.5 - Math.random()));
     }
 
-    const onLoginClickHandler = async() => {
-        const validate = await login(finalPass);
+    const onLoginClickHandler = async () => {
+        const validate = await login(window.location.hostname, finalPass);
+        console.log(validate)
         if(validate) {
             toast("Logged In Successful")
         }
         else {
-            // toast.error("Wrong Password")
+            toast.error("Wrong Password")
             setImages(images.sort((a, b) => 0.5 - Math.random()));
         }
-
     }
+
+    console.log(images)
 
     return (
         <div className="w-[565px] h-auto px-[50px] py-[25px] bg-[#12131A] text-white flex flex-col gap-y-[20px] rounded-2xl m-auto shadow-lg">

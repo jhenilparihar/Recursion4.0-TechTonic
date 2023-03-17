@@ -1,4 +1,3 @@
-import { createTheme, FormControl, InputLabel, MenuItem, Select, ThemeProvider } from "@mui/material";
 import { useEffect, useState } from "react";
 import ConfirmSelectedImages from "./confirmSelectedImages";
 import SelectImages from "./selectImages";
@@ -11,7 +10,6 @@ const Singup = ({ tokenURI, signup }) => {
   const [passStatus, setPassStatus] = useState(false);
   const [images, setImages] = useState([]);
   const [finalPass, setFinalPass] = useState(null);
-  const [imageCategory, setImageCategory] = useState()
 
   const getImage = async (tokenUri) => {
     const result = await fetch(tokenUri);
@@ -22,25 +20,6 @@ const Singup = ({ tokenURI, signup }) => {
 
   const signUp = async () => {
     await signup(finalPass);
-  };
-
-  const darkTheme = createTheme({
-    palette: {
-      mode: "dark",
-    },
-  });
-
-  const handleChange = (event) => {
-    setImageCategory(event.target.value);
-  };
-
-  const image = {
-    chocolate: "QmTcn6vxMmxRvRGuCZvgjwxJ3NiBEiuDnQW64iwi4Bia5D",
-    cars: "QmQkLxpZFvhSRZDGbRFWJQrTvttbEfrAQNVx3nJ5Q77wpA",
-    fruits: "QmQuyGGo9DEbhvwFBxCM23NphzuE2jqmWzRtX36iaWXWdC",
-    vegetables: "QmRBsrfKdd6yxFgef9EDqx9gMN21V82KigJvXrhfmqPQza",
-    animals: "QmT8YBJtuCDN4jZk8Gy3FJGD9tUrWUAP6QpWch28c9MEWp",
-    bike: "QmSh3Vg1pz3Ux9t6tFfh77TGXoaZ9jUHNShBKK8hL5ufQ1",
   };
 
   useEffect(() => {
@@ -60,29 +39,6 @@ const Singup = ({ tokenURI, signup }) => {
           {"0xCdd631B7C43B0b0B2b7E3517BD32B4A19C29D323"}
         </span>
       </div> */}
-
-      <ThemeProvider theme={darkTheme}>
-      <div className="w-[50%]">
-      <FormControl className="w-[100%]">
-        <InputLabel id="demo-simple-select-label">Select Image Category</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={imageCategory}
-          label="Select Image Category"
-          size="small"
-          onChange={handleChange}
-        >
-          {Object.entries(image).map((key, value) => {
-            return (
-              <MenuItem value={key[1]}>{key[0]}</MenuItem>
-            )
-          })}
-        </Select>
-      </FormControl>
-      </div>
-      
-      </ThemeProvider>
 
       <div className="">
         <div className="flex flex-row">
