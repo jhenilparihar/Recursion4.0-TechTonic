@@ -1,4 +1,4 @@
 import abi from './VisualVault.json';
 
 export const contractABI = abi.abi;
-export const contractAddress = '0x95B42641D551664Aa74dB496a0Cd56cb97B54c37';
+export const contractAddress = '0xFC0a20b208587F12A274E5c7C2b70448831eA0aE';
