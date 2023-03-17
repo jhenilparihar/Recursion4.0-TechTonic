@@ -1,16 +1,15 @@
 const main = async () => {
-  const Transactions = await hre.ethers.getContractFactory("Transactions");
-  const transactions = await Transactions.deploy();
+  // const Transactions = await hre.ethers.getContractFactory("Transactions");
+  // const transactions = await Transactions.deploy();
 
-  await transactions.deployed();
+  // await transactions.deployed();
 
-  const MyNFT = await hre.ethers.getContractFactory("MyNFT");
-  const mynft = await MyNFT.deploy();
+  const VisualVault = await hre.ethers.getContractFactory("VisualVault");
+  const myVisualVault = await VisualVault.deploy();
 
-  await mynft.deployed();
+  await myVisualVault.deployed();
 
-  console.log("Transactions deploy to: ", transactions.address);
-  console.log("MyNFT deploy to: ", mynft.address);
+  console.log("VisualVault deploy to: ", myVisualVault.address);
 };
 
 const runMain = async () => {

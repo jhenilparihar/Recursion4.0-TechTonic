@@ -24,7 +24,7 @@ const Login = ({ tokenURI, login }) => {
     }
 
     const onLoginClickHandler = async() => {
-        const validate = await login(window.location.hostname, finalPass);
+        const validate = await login(finalPass);
         if(validate) {
             toast("Logged In Successful")
         }
