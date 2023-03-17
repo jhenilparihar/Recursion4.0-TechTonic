@@ -82,9 +82,15 @@ class App extends Component {
           .call();
         console.log(cp);
         this.setState({ userProfile: cp });
-        console.log(cp.passwords[0])
-        for (let i = 0; i < cp.passwords.lenght; i++) {
-          console.log(cp.passwords[0].siteDomain);
+        let flag = 0;
+        for (let i = 0; i < cp.passwords.length; i++) {
+          if (cp.passwords[i][0] == this.state.domain) {
+            this.setState({ isSignUp: true });
+            flag = 1;
+          }
+        }
+        if (flag == 0) {
+          this.setState({ isSignUp: false });
         }
       }
       this.setState({ loading: false });
@@ -113,10 +119,7 @@ class App extends Component {
   createProfile = async (name, tokenURI) => {
     this.setState({ loading: true });
     const transactionHash = await this.state.Contract.methods
-      .addUserProfile(
-        name,
-        `https://ipfs.io/ipfs/${tokenURI}`
-      )
+      .addUserProfile(name, `https://ipfs.io/ipfs/${tokenURI}`)
       .send({ from: this.state.accountAddress })
       .on("confirmation", () => {
         this.setState({ loading: false });
@@ -156,32 +159,16 @@ class App extends Component {
           <ContractNotDeployed />
         ) : this.state.loading ? (
           <Loading />
+        ) : !this.state.isSignUp ? (
+          <Signup
+            tokenURI={this.state.userProfile?.tokenURI}
+            signup={this.signup}
+          />
         ) : (
-          // <UploadImage />
-
-          <BrowserRouter>
-            <Routes>
-              <Route
-                path="signup"
-                element={
-                  <Signup
-                    tokenURI={this.state.userProfile?.tokenURI}
-                    signup={this.signup}
-                  />
-                }
-              />
-              <Route
-                path="login"
-                element={
-                  <Login
-                    tokenURI={this.state.userProfile?.tokenURI}
-                    login={this.login}
-                  />
-                }
-              />
-              <Route path="upload" element={<UploadImage />} />
-            </Routes>
-          </BrowserRouter>
+          <Login
+            tokenURI={this.state.userProfile?.tokenURI}
+            login={this.login}
+          />
         )}
         <ToastContainer />
       </div>
