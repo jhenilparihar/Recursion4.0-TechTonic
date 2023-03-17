@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { toast } from "react-toastify"
 
 const LoginSelectImages = (props) => {
     const [images, setImages] = useState(props.images)
@@ -11,18 +12,24 @@ const LoginSelectImages = (props) => {
         setSelectedImages((prev) => [...prev, imageId])
     }
 
-    const onConfirmClickHandler = () => {
+    const onConfirmClickHandler = async () => {
         let result = ''
         for(let i=0; i<selectedImages.length; i++) {
           result += selectedImages[i]
         }
-        props.setFinalPass(result)
         setSelectedImages([])
-        props.onLoginClickHandler()
+
+        const validate = await props.login('localhost', result);
+        if(validate) {
+            toast.success("Logged In Successful")
+        }
+        else {
+            toast.error("Wrong Password")
+            setImages(images.sort((a, b) => 0.5 - Math.random()));
+        }
     }
 
     const onCancelClickHandler = () => {
-        // props.setShowConfirmPass(false)
         setSelectedImages([])
         props.shuffle()
     }

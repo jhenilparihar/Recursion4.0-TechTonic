@@ -139,6 +139,9 @@ class App extends Component {
   };
 
   login = async (site, password) => {
+    console.log(this.state.accountAddress);
+    console.log(password)
+    console.log(site)
     return await this.state.Contract.methods
       .login(this.state.accountAddress, site, password)
       .call();

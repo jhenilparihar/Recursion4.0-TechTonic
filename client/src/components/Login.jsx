@@ -24,14 +24,14 @@ const Login = ({ tokenURI, login }) => {
     }
 
     const onLoginClickHandler = async () => {
-        const validate = await login(window.location.hostname, finalPass);
+        const validate = await login('localhost', finalPass);
         console.log(validate)
-        if(validate) {
-            toast("Logged In Successful")
+        if(!validate) {
+            toast.success("Logged In Successful")
         }
         else {
             toast.error("Wrong Password")
-            setImages(images.sort((a, b) => 0.5 - Math.random()));
+            // setImages(images.sort((a, b) => 0.5 - Math.random()));
         }
     }
 
@@ -72,6 +72,7 @@ const Login = ({ tokenURI, login }) => {
                         setShowEnterPass={setShowEnterPass}
                         onLoginClickHandler={onLoginClickHandler}
                         shuffle={shuffle}
+                        login={login}
                     />
                 </div>}
             </div>
